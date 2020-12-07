@@ -68,6 +68,49 @@ Instructor: Dr. Edris Ebrahimzadeh
 
 
     //create a parallel 2D array whose first column contains the average (mean) of each water sample :
+    double pHStat[80][3] = { 0.0 };
+    double rowSum = 0.0;
+    double rowMean = 0.0;
+    double var = 0.0;
+
+    for (int r = 0; r < 80; r++)
+    {
+        for (int c = 0; c < 3; c++)
+        {
+            rowSum += pHData[r][c];
+        }//end c for
+        rowMean = rowSum / 3.0;
+        for (int c = 0; c < 3; c++)
+        {
+            var += (pHData[r][c] - rowMean)*(pHData[r][c] - rowMean);
+        }
+        pHStat[r][0] = rowMean;                 //Column 1 = Average pH
+        pHStat[r][1] = sqrt(var/3.0);           //Column 2 = Location St.Dev
+        pHStat[r][2] = 7.0 - rowMean;           //Column 3 = Acidity scale (0-7)  Base scale (-7 - 0)
+        var = 0.0;
+        rowSum = 0.0;
+    }//end r for
+
+        
+        
+
+    for (int x = 0; x < 80; x++)
+    {
+        for (int y = 0; y < 3; y++)
+        {
+            cout << fixed << setprecision(2);
+            cout << pHStat[x][y] << ' ';
+        }//end column for
+        cout << endl;
+    }//end rows for
+        
+
+
+
+
+
+
+
 
 
 
