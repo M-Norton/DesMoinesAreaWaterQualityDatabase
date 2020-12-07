@@ -33,7 +33,7 @@ Instructor: Dr. Edris Ebrahimzadeh
 
     //Hard code a 2D array database, data source: DMACC CHM165 class fall 2020: 
 
-    //pH sample location names, in same order as pHData:
+            //pH sample location names, in same order as pHData:
     string pHLocation[80] = { "Altoona HyVee Purified Water","Ames Home Purified Water","Ames Tap Water",
         "Ankeny Tap (R)","Ankeny tap Water","Ankeny Tap Water (E)","Ankeny Toilet Water","Aquafina","Aquafina",
         "Atlantic Tap","Beaverdale Tap Water","Body Armor","Boiler Water","Boone Bathroom","Boone Campus Fountain",
@@ -65,7 +65,35 @@ Instructor: Dr. Edris Ebrahimzadeh
         {8.8,9,9.1},{8.7,9,8.9},{8.8,8.9,8.8} };
 
 
-    //ppm sample location names, in same order as ppmData:
+
+
+    //create a parallel 2D array whose first column contains the average (mean) of each water sample :
+
+
+
+
+    //the second column shows the standard deviation
+
+
+
+
+    //the third column shows the acidity of each water sample based on the calculated average value 
+
+
+
+
+    //Ask user to enter a water acidity sample source location:
+
+
+
+
+    //Display Avg.pH; St.Dev; and Acidiy of user chosen water source:
+
+
+
+
+    //Store ppm data in 2D array:
+            //ppm sample location names, in same order as ppmData:
     string ppmLocation[30] = { "Hy Vee drinking water","DMACC Filtered water station","Great value distilled water",
         "Sam's Choice purified water","Hot tub water","Fertilized water","Clive tap water","Creek water","Urbandale tap water",
         "Fountain water","Smart water","Flavored water","Tap 1 from lab","tap 2 from lab","Distilled water","Spring water ",
@@ -77,28 +105,8 @@ Instructor: Dr. Edris Ebrahimzadeh
         {25.3},{37.1},{1540} };
 
 
+    //Create a parallel 1D array of the St.Dev of ppm for each water sample:
 
-    // Populate 2D array with calulated values for Avg.PH; St.Dev; Acidity:
-
-
-
-
-    //Ask user if they would like to lookup water acidity (Y/N):
-
-
-
-
-    //Ask user to enter a water acidity sample source location (choose from list?):
-
-
-
-
-    //Display Avg.PH; St.Dev; and Acidiy of user chosen water source:
-
-
-
-
-    //Ask user if they would like to lookup water hardness (Y/N):
 
 
 
