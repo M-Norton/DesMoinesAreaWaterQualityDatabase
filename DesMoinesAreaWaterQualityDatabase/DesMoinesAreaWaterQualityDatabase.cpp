@@ -110,7 +110,7 @@ Instructor: Dr. Edris Ebrahimzadeh
 
 
 
-    //Ask user to enter a water hardness sample source location (choose from list?):
+    //Ask user to enter a water hardness sample source location:
 
 
 
