@@ -6,9 +6,37 @@
 #include <cmath>
 using namespace std;
 
+/*
+*********** pH ****************
+pHLocation[]
+convertUp(& pHLocation)
+phData[][]
+userInput
+convertUp(userInput)
+index = findIndex (pHLocation, userInput)
+i = pHCalc(index, pHData)
+    calcuates the row avg at pHData[index][]  --> pHStat[index][0]
+    calculates the st.dev at pHData[index][]  --> pHStat[index][1]
+    calculates the acidity scale 0-7  --> pHStat[index][2]
+pHOut @ index (index, pHData)
+    cout pHStat[index][0]
+    cout pHStat[index][1]
+    cout "acidity level" according to pHStat[index][2]
 
-int main()
-{
+*********** ppm ****************
+ppmLocation[]
+convertUp(& ppmLocation)
+ppmData[]
+UserInput
+convertUp(userInput)
+index = findIndex(ppmLocation, userInput)
+ppmOut(index, ppmData)
+    cout ppmData[index]
+    calc st.Dev of all ppmData[]
+    cout st.dev of all ppmData[]
+*/
+
+int main(){
     //Title graphic
     std::cout << R"(                                                 
   ____  __  __    _    ____ ____ 
@@ -31,9 +59,8 @@ Instructor: Dr. Edris Ebrahimzadeh
 =========================================                                                
 )" << '\n';
 
-    //Hard code a 2D array database, data source: DMACC CHM165 class fall 2020: 
-
-            //pH sample location names, in same order as pHData:
+    //2D array database, data source: DMACC CHM165 class fall 2020: 
+    //pH sample location names, in same order as pHData:
     string pHLocation[80] = { "Altoona HyVee Purified Water","Ames Home Purified Water","Ames Tap Water",
         "Ankeny Tap (R)","Ankeny tap Water","Ankeny Tap Water (E)","Ankeny Toilet Water","Aquafina","Aquafina",
         "Atlantic Tap","Beaverdale Tap Water","Body Armor","Boiler Water","Boone Bathroom","Boone Campus Fountain",
@@ -41,16 +68,16 @@ Instructor: Dr. Edris Ebrahimzadeh
         "DSM Tap Water","Easter Lake","Essential Overachieving Water (Bottled)","Evian Natural Spring Water","Farm Creek",
         "Fiji Natural Artesian (bottled water)","Fiji Water","Filtered DSM Water","Filtered Water (Ankeny)",
         "Filtered Water from Jewell","Filtered Well Water","Fish Tank Water","Fourmile Creek Water","Great Value",
-        "Grimes Tap Water","Guthrie Center Tap","Hot Tub – Ames (Americ Inn)","Hot Tub Water","Ice Mountain Bottled Water",
+        "Grimes Tap Water","Guthrie Center Tap","Hot Tub â€“ Ames (Americ Inn)","Hot Tub Water","Ice Mountain Bottled Water",
         "Ion-Exchange Water","Johnston Tap Water","Kitchen Faucet","Life Water","Melted Snow","Norwalk Creek Water",
         "Norwalk Tap Water","P. C. Snow Water","Pleasant Hill Tap Water","Pond Water","Pond Water","Pool -  Urbandale",
-        "Pool – Ames Americ Inn","Pool Water","Puraqua Water (bottled)","RO Water (from purification?)","Saylorville Lake Water",
+        "Pool â€“ Ames Americ Inn","Pool Water","Puraqua Water (bottled)","RO Water (from purification?)","Saylorville Lake Water",
         "Shower Water","Tap from Perry","Tap P.C.","Tap water","Tap Water","Tap Water (Polk County)","Tap Water from Perry",
         "Toilet Water","Unfiltered Well Water","UNI Tap Water","Urban Campus Bathroom","Urban Campus Fountain",
         "Urbandale / Windsor Height Creek","Urbandale Toilet Water","Water Extracted from Snow","Water fountain","Water from Cooling Tower",
         "Well Water","Well Water (Jewell)","Wells Fargo, Des Moines","West Campus Bathroom","West Campus Fountain" };
 
-    //pH sample values, 3 trials per sample location, in same order as pHLocation:
+    //pH sample values, 3 trials per location, in same order as pHLocation:
     double pHData[80][3] = { {7.77,7.69,7.06},{6.94,7.1,7.13},{8.86,8.95,9.05},{8.1,8.3,8.5},{8.72,8.67,8.67},
         {8.4,8.5,8.6},{7.68,7.82,7.81},{7.03,6.9,6.85},{5.53,5.36,5.34},{8.4,8.2,8.1},{9.1,9.2,9.2},{7.25,7.45,8.35},
         {7.71,7.8,7.86},{8.9,9,9},{9,9.1,9.1},{7.24,7.27,7.25},{8.34,8.16,7.9},{7.4,7.16,7.14},{6,5.8,5.64},{8.21,8.05,8},
