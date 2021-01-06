@@ -1,13 +1,13 @@
-// DesMoinesAreaWaterQualityDatabase.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// ConsoleApplication4.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 /*
 *********** pH ****************
-pHLocation[]
-convertUp(& pHLocation)
-phData[][]
-userInput
-convertUp(userInput)
+>> pHLocation[]
+>> convertUp(& pHLocation)
+>> phData[][]
+>> userInput
+>> convertUp(userInput)
 index = findIndex (pHLocation, userInput)
 i = pHCalc(index, pHData)
     calcuates the row avg at pHData[index][]  --> pHStat[index][0]
@@ -41,9 +41,9 @@ using namespace std;
 void convertUp(string& s);
 double getStDev(double data[], int numElements);
 int search(string names[], string target, int numElements);
-void calcPh(int index, double& inputArray[80][3], double& outputArray[80][3]);
-void pHDisplayOut(int index, double arr[80][3]);
-void print2dArray(double a[], int x, int y);  //for validation/debugging
+void calcPh(int index, double& inArr[80][3], double& outArr[80][3]);
+void pHDisplayOut(int index, double arr[80][3], string locationName);
+void print2dArray(double a[80][3], int x, int y);  //for validation/debugging
 
 int main()
 {
@@ -71,7 +71,7 @@ int main()
 =========================================                                                
 )" << '\n';
 
-    //Hard coded 2D array database, data source: DMACC CHM165 class fall 2020: 
+    //Data source: DMACC CHM165 class fall 2020: 
     //pH sample location names, in same order as pHData:
     string pHLocation[80] = { "Altoona HyVee Purified Water","Ames Home Purified Water","Ames Tap Water",
         "Ankeny Tap (R)","Ankeny tap Water","Ankeny Tap Water (E)","Ankeny Toilet Water","Aquafina","Aquafina",
@@ -102,7 +102,7 @@ int main()
         {8.15,8.3,8.38},{7.43,7.47,7.51},{8.67,8.93,9.04},{7.4,7.59,7.6},{7.79,7.83,7.83},{7.4,7.4,7.5},{9,8.9,9},{9.1,9,9},
         {7.08,7.22,7.24},{8.64,9.12,9.05},{6.68,6.62,6.61},{7.85,8.11,8.22},{7,6.95,6.95},{6.95,7,7.04},{7.19,7.1,7.22},
         {8.8,9,9.1},{8.7,9,8.9},{8.8,8.9,8.8} };
-    
+
     //Ask user to enter a water acidity sample source location:
     //declare variables
     string pHChoice = "";
@@ -126,14 +126,14 @@ int main()
 
     //Display Avg.pH; St.Dev; and Acidiy of chosen water source:
     //Display ppm, and St.Dev of user chosen water source:
-    pHDisplayOut(h, pHStat);
+    pHDisplayOut(i, pHStat, pHChoice);
 
     //prints out the acididty level of the user chosen water source:
-    if (pHData[h][2] < 2)
+    if (pHData[i][2] < 2)
         cout << "Highly Acidic." << endl;
-    if else (pHData[h][2] < 4)
+    else if (pHData[i][2] < 4)
         cout << "Acidic." << endl;
-    if else (pHData[h][2] < 6)
+    else if (pHData[i][2] < 6)
         cout << "Mild Acid." << endl;
     else
         cout << "Neutral." << endl;
@@ -157,7 +157,7 @@ int main()
         {25.3},{37.1},{1540} };
 
     //Find the St.Dev of all ppm sample locations:
-    ppmStDev = getStDev(ppmData, 30);
+    double ppmStDev = getStDev(ppmData, 30);
 
     //Ask user to enter a water hardness sample source location:
     string ppmChoice = "";
@@ -175,8 +175,8 @@ int main()
 
 /* ************Function Definitions****************** */
 // Searches an array fro a matching striign a little
-int search(string names[], string target, int numElements){
-    for (int i = 0; i < numElements; i++){
+int search(string names[], string target, int numElements) {
+    for (int i = 0; i < numElements; i++) {
         if (names[i].compare(target) == 0)
             return i;
     }
@@ -197,15 +197,11 @@ double getStDev(double data[], int numElements)
 }
 
 // print2dArray function: prints out all elements of a 2D array
-void print2dArray(double a[], int x, int y)
+void print2dArray(double a[80][3], int x, int y)
 {
-    for (int x = 0; x < 80; x++)
-    {
+    for (int x = 0; x < 80; x++){
         for (int y = 0; y < 3; y++)
-        {
-            cout << fixed << setprecision(2);
-            cout << pHStat[x][y] << ' ';
-        }//end column for
+            cout << fixed << setprecision(2)<< a[x][y] << ' ';
         cout << endl;
     }
 }
@@ -214,54 +210,49 @@ void print2dArray(double a[], int x, int y)
 void convertUp(string& s) {
     for (int i = 0; i < s.length(); i++)
         s[i] = toupper(s[i]);
+}
 
 // Given an index value, prints data from an array.  Invalid if index = -1
-void pHDisplayOut(int index, double arr[80][3]){
+void pHDisplayOut(int index, double arr[80][3], string locationName) {
     if (index != -1) {
         cout << fixed << setprecision(2);
-        cout << endl << pHChoice << " average acidity (pH) = " << pHStat[h][0] << endl << " st.dev: "<< pHStat[h][1]
-                     << endl;cout << "Index value = " << index << endl << "Number value :" << arr[index][0] << endl;
-    int row = 0;
-    
-    while (row < 80 ){
-        cout << fixed << setprecision(2);
-        
-        }
-
-
-
+        cout << endl << locationName << " average acidity (pH) = " << arr[index][0] << endl << " st.dev: " << arr[index][1]
+            << endl; cout << "Index value = " << index << endl << "Number value :" << arr[index][0] << endl;
+        int row = 0; 
+        while (row < 80)
+            cout << fixed << setprecision(2);
     }
     else
         cout << "Invalid Entry" << endl;
 }
 
 //Builds pHStat, a parallel 2D array (location avg, location St.Dev, acidity lvl 0-7):
-void calcPh(int index, double& inputArray[80][3], double& outputArray[80][3]){
+void calcPh(int index, double& inArr[80][3], double& outArr[80][3]) { 
     double rowSum = 0.0;
     double rowMean = 0.0;
     double sumRowMeanDevSqrt = 0.0;
-    
-    for (int r = 0; r < 80; r++){
+
+    for (int r = 0; r < 80; r++) {
         //Accumulates the sum of a row in the variable rowSum:
         for (int c = 0; c < 3; c++)
-            rowSum += intputArray[r][c];
+            rowSum += inArr[r][c];
 
         //Calculates the row arithmetic mean (average):
         rowMean = rowSum / 3.0;
 
         //Calculates the summation of mean deviation squared of each row 
         for (int c = 0; c < 3; c++)
-            sumRowMeanDevSqrt += (inputArray[r][c] - rowMean)*(inputArray[r][c] - rowMean);
+            sumRowMeanDevSqrt += (inArr[r][c] - rowMean) * (inArr[r][c] - rowMean);
 
         //the first column shows the average pH level of the sample location
-        outputArray[r][0] = rowMean;                              //Column 1 = Average pH
+        outArr[r][0] = rowMean;                              //Column 1 = Average pH
 
         //the second column shows the standard deviation
-        outputArray[r][1] = sqrt(sumRowMeanDevSqrt/3.0);    //Column 2 = Location St.Dev
-        
+        outArr[r][1] = sqrt(sumRowMeanDevSqrt / 3.0);    //Column 2 = Location St.Dev
+
         //the third column shows the acidity of each water sample based on the calculated average value     
-        outputArray[r][2] = 7.0 - rowMean;                        //Column 3 = Acidity scale (0-7)  Base scale (-7 - 0)
-      
+        outArr[r][2] = 7.0 - rowMean;                        //Column 3 = Acidity scale (0-7)  Base scale (-7 - 0)
+
         // resets sumRowMeanDeviationSquared and rowSum variables    
         sumRowMeanDevSqrt = 0.0;
         rowSum = 0.0;
