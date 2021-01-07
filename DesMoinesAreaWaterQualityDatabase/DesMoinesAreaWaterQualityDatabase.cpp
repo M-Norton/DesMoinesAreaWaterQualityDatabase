@@ -41,7 +41,7 @@ using namespace std;
 void convertUp(string& s);
 double getStDev(double data[], int numElements);
 int search(string names[], string target, int numElements);
-void calcPh(int index, double& inArr[80][3], double& outArr[80][3]);
+void calcPh(int index, double inArr[80][3], double outArr[80][3]);
 void pHDisplayOut(int index, double arr[80][3], string locationName);
 void print2dArray(double a[80][3], int x, int y);  //for validation/debugging
 
@@ -49,26 +49,18 @@ int main()
 {
     //Title graphic
     cout << R"(                                                 
-  ____  __  __    _    ____ ____ 
- |  _ \|  \/  |  / \  / ___/ ___|
- | | | | |\/| | / _ \| |  | |    
- | |_| | |  | |/ ___ \ |__| |___ 
- |____/|_|  |_/_/   \_\____\____|
+   ____  __  __    _    ____ ____ 
+  |  _ \|  \/  |  / \  / ___/ ___|      
+  | | | | |\/| | / _ \| |  | |          EGR 155 - Engineering C/C++
+  | |_| | |  | |/ ___ \ |__| |___       Developer:  Matt Norton
+  |____/|_|  |_/_/   \_\____\____|      Instructor: Dr. Edris Ebrahimzadeh
                                  
- EGR 155 - Engineering C/C++
+                 A final project made in collaboration with
+                        DMACC CHM165 fall class 2020.        
 
- Developer:  Matt Norton
-
- Instructor: Dr. Edris Ebrahimzadeh
-
- A project made in collaboration with
- DMACC CHM165 fall class 2020.
-
-
- A Des Moines Area Water Quality Database    
-
-=========================================
-=========================================                                                
+                 A Des Moines Area Water Quality Database    
+=============================================================================
+=============================================================================                                           
 )" << '\n';
 
     //Data source: DMACC CHM165 class fall 2020: 
@@ -76,7 +68,7 @@ int main()
     string pHLocation[80] = { "Altoona HyVee Purified Water","Ames Home Purified Water","Ames Tap Water",
         "Ankeny Tap (R)","Ankeny tap Water","Ankeny Tap Water (E)","Ankeny Toilet Water","Aquafina","Aquafina",
         "Atlantic Tap","Beaverdale Tap Water","Body Armor","Boiler Water","Boone Bathroom","Boone Campus Fountain",
-        "Bottled Water","Cold Lime Softened Water","Creek Water","Dasani","Distilled Water","DSM River","DSM Tap",
+        "Bottled Water","Cold Lime Softened Water","Creek Water","Dasani" ,"Distilled Water","DSM River","DSM Tap",
         "DSM Tap Water","Easter Lake","Essential Overachieving Water (Bottled)","Evian Natural Spring Water","Farm Creek",
         "Fiji Natural Artesian (bottled water)","Fiji Water","Filtered DSM Water","Filtered Water (Ankeny)",
         "Filtered Water from Jewell","Filtered Well Water","Fish Tank Water","Fourmile Creek Water","Great Value",
@@ -88,6 +80,9 @@ int main()
         "Toilet Water","Unfiltered Well Water","UNI Tap Water","Urban Campus Bathroom","Urban Campus Fountain",
         "Urbandale / Windsor Height Creek","Urbandale Toilet Water","Water Extracted from Snow","Water fountain","Water from Cooling Tower",
         "Well Water","Well Water (Jewell)","Wells Fargo, Des Moines","West Campus Bathroom","West Campus Fountain" };
+
+    for (int i = 0; i < 80; i++)
+        convertUp(pHLocation[i]);
 
     //pH sample values, 3 trials per sample location, parallel with pHLocation:
     double pHData[80][3] = { {7.77,7.69,7.06},{6.94,7.1,7.13},{8.86,8.95,9.05},{8.1,8.3,8.5},{8.72,8.67,8.67},
@@ -216,7 +211,7 @@ void convertUp(string& s) {
 void pHDisplayOut(int index, double arr[80][3], string locationName) {
     if (index != -1) {
         cout << fixed << setprecision(2);
-        cout << endl << locationName << " average acidity (pH) = " << arr[index][0] << endl << " st.dev: " << arr[index][1]
+        cout << endl << locationName << " average acidity (pH) = " << arr[index][0] << endl << "st.dev: " << arr[index][1]
             << endl; cout << "Index value = " << index << endl << "Number value :" << arr[index][0] << endl;
         int row = 0; 
         while (row < 80)
@@ -227,7 +222,7 @@ void pHDisplayOut(int index, double arr[80][3], string locationName) {
 }
 
 //Builds pHStat, a parallel 2D array (location avg, location St.Dev, acidity lvl 0-7):
-void calcPh(int index, double& inArr[80][3], double& outArr[80][3]) { 
+void calcPh(int index, double inArr[80][3], double outArr[80][3]) { 
     double rowSum = 0.0;
     double rowMean = 0.0;
     double sumRowMeanDevSqrt = 0.0;
