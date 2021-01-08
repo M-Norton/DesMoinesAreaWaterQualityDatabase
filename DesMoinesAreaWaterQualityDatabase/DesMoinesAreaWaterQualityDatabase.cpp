@@ -8,10 +8,11 @@
 using namespace std;
 
 //fn prototypes:
+string userChoice(string input);
 void convertLineUp(string& s);
 void convertArrayUp(string arr[], int numElements);
-double getStDev(double data[], int numElements);
 int search(string names[], string target, int numElements);
+double getStDev(double data[], int numElements);
 void calcPh(int index, double inArr[80][3], double outArr[80][2]);
 void pHDisplayOut(int index, double arr[80][2], string locationName);
 void ppmDisplayOut(int index, double data[], int numElements);
@@ -66,15 +67,13 @@ int main()
         {7.08,7.22,7.24},{8.64,9.12,9.05},{6.68,6.62,6.61},{7.85,8.11,8.22},{7,6.95,6.95},{6.95,7,7.04},{7.19,7.1,7.22},
         {8.8,9,9.1},{8.7,9,8.9},{8.8,8.9,8.8} };
 
-    //Ask user to enter a water acidity sample source location:
-    string pHChoice = "";
-    cout << "Enter a water sample location: ";
-    getline(cin, pHChoice);
+    //User input sample location.
+    pHChoice = userChoice();
 
-    //Convert the user input into uppercase.
+    //User input uppercase.
     convertLineUp(pHChoice);
-
-    //Convert location names to uppercase.
+    
+    //Location names to uppercase.
     convertArrayUp(pHLocation, 80);
 
     //Find matching index value.
@@ -103,15 +102,16 @@ int main()
         {60.6},{43.6},{176.4},{214.4},{4.01},{57},{62.1},{266.2},{7.56},{57.9},{59.5},{47.6},{193.7},{27},{37.5},
         {25.3},{37.1},{1540} };
 
-    //Find the St.Dev of all ppm sample locations:
+    //User input sample location.
+    ppmChoice = userChoice();
     
+    //User input uppercase.
+    convertLineUp(ppmChoice);
+    
+    //Location names to uppercase.
+    convertArrayUp(ppmLocation, 30);
 
-    //Ask user to enter a water hardness sample source location:
-    string ppmChoice = "";
-    cout << "Enter a water sample location: ";
-    getline(cin, ppmChoice);
-
-    //Find matching index value
+    //Find matching index value.
     int j = search(ppmLocation, ppmChoice, 30);
 
     //Display matching ppm, and St.Dev.
@@ -119,32 +119,17 @@ int main()
     
     return 0;
 
-}//        ~~~ END MAIN ~~~
-
-
+}//  ~~~ END MAIN ~~~
 
 
 // * * * * * * * Function Definitions * * * * * * * * *
 
-//Return match index value. No match returns -1.
-int search(string names[], string target, int numElements) {
-    for (int i = 0; i < numElements; i++) {
-        if (names[i].compare(target) == 0)
-            return i;
-    }
-    return -1;
-}
-
-//Calc St.Dev of all elemenets within a 1D array.
-double getStDev(double data[], int numElements){
-    double sum, mean, standardDeviation = 0.0;
-    int i;
-    for (i = 0; i < numElements; ++i)
-        sum += data[i];
-    mean = sum / numElements;
-    for (i = 0; i < numElements; ++i)
-        standardDeviation += pow(data[i] - mean, 2);
-    return sqrt(standardDeviation / numElements - 1);
+//User Input returned as string.
+string userChoice() {
+    string input = "";
+    cout << "Enter a water sample location: ";
+    getline(cin, input);
+    return input;
 }
 
 //Convert string to all uppercase.
@@ -159,7 +144,54 @@ void convertArrayUp(string arr[], int numElements) {
         convertLineUp(arr[i]);
 }
 
-//
+//Return match index value. No match returns -1.
+int search(string names[], string target, int numElements) {
+    for (int i = 0; i < numElements; i++) {
+        if (names[i].compare(target) == 0)
+            return i;
+    }
+    return -1;
+}
+
+//Calc St.Dev of all elemenets within a 1D array.
+double getStDev(double data[], int numElements) {
+    double sum, mean, standardDeviation = 0.0;
+    int i;
+    for (i = 0; i < numElements; ++i)
+        sum += data[i];
+    mean = sum / numElements;
+    for (i = 0; i < numElements; ++i)
+        standardDeviation += pow(data[i] - mean, 2);
+    return sqrt(standardDeviation / numElements - 1);
+}
+
+//Builds pHStat.
+void calcPh(int index, double inArr[80][3], double outArr[80][2]) { 
+    double rowSum = 0.0;
+    double rowMean = 0.0;
+    double sumRowMeanDevSqrt = 0.0;
+
+    for (int r = 0; r < 80; r++) {
+        //Accumulates the sum of a row.
+        for (int c = 0; c < 3; c++)
+            rowSum += inArr[r][c];
+        rowMean = rowSum / 3.0;
+
+        //Summation of mean deviation squared of each row.
+        for (int c = 0; c < 3; c++)
+            sumRowMeanDevSqrt += (inArr[r][c] - rowMean) * (inArr[r][c] - rowMean);
+        //average pH
+        outArr[r][0] = rowMean;
+        //st.dev
+        outArr[r][1] = sqrt(sumRowMeanDevSqrt / 3.0);
+
+        //resets    
+        sumRowMeanDevSqrt = 0.0;
+        rowSum = 0.0;
+    }
+}
+
+//Displays Avg pH, St.Dev, characteristic.
 void pHDisplayOut(int index, double arr[80][2], string locationName) {
     if (index != -1) {
         cout << fixed << setprecision(2);
@@ -186,37 +218,10 @@ void pHDisplayOut(int index, double arr[80][2], string locationName) {
         cout << "Invalid Entry" << endl;
 }
 
-//Displays Avg ppm, and St.Dev
+//Displays Avg ppm, and St.Dev.
 void ppmDisplayOut(int index, double data[], int numElements) {
     double ppmStDev = getStDev(data, numElements);
     cout << fixed << setprecision(2) << endl << " Water harness (ppm) = " << data[index]
         << endl << "ppm St.Dev of all samples: " << ppmStDev << endl;
 }
 
-//Builds pHStat
-void calcPh(int index, double inArr[80][3], double outArr[80][2]) { 
-    double rowSum = 0.0;
-    double rowMean = 0.0;
-    double sumRowMeanDevSqrt = 0.0;
-
-    for (int r = 0; r < 80; r++) {
-        //Accumulates the sum of a row
-        for (int c = 0; c < 3; c++)
-            rowSum += inArr[r][c];
-        rowMean = rowSum / 3.0;
-
-        //Calculates the summation of mean deviation squared of each row 
-        for (int c = 0; c < 3; c++)
-            sumRowMeanDevSqrt += (inArr[r][c] - rowMean) * (inArr[r][c] - rowMean);
-
-        //average pH
-        outArr[r][0] = rowMean;
-
-        //st.dev
-        outArr[r][1] = sqrt(sumRowMeanDevSqrt / 3.0);
-
-        //resets    
-        sumRowMeanDevSqrt = 0.0;
-        rowSum = 0.0;
-    }
-}
