@@ -8,7 +8,7 @@
 using namespace std;
 
 //fn prototypes:
-string userChoice(string input);
+string userChoice();
 void convertLineUp(string& s);
 void convertArrayUp(string arr[], int numElements);
 int search(string names[], string target, int numElements);
