@@ -194,9 +194,10 @@ void calcPh(int index, double inArr[80][3], double outArr[80][2]) {
 //Displays Avg pH, St.Dev, characteristic.
 void pHDisplayOut(int index, double arr[80][2], string locationName) {
     if (index != -1) {
-        cout << fixed << setprecision(2);
-        cout << endl << locationName << " average acidity (pH) = " << arr[index][0] << endl << "Sample st.dev: " << arr[index][1]
-            << endl << "Avg. pH characteristic: ";
+        cout << fixed << setprecision(2) 
+             << endl << "Sample avg. pH = " << arr[index][0] 
+             << endl << "Sample St.Dev: " << arr[index][1] 
+             << endl << "Characteristic: ";
        
         // pH scale Acidic( 0 - 14)Basic:
         if (arr[index][0] < 2)
@@ -221,7 +222,8 @@ void pHDisplayOut(int index, double arr[80][2], string locationName) {
 //Displays Avg ppm, and St.Dev.
 void ppmDisplayOut(int index, double data[], int numElements) {
     double ppmStDev = getStDev(data, numElements);
-    cout << fixed << setprecision(2) << endl << " Water harness (ppm) = " << data[index]
-        << endl << "ppm St.Dev of all samples: " << ppmStDev << endl;
+    cout << fixed << setprecision(2) 
+        << endl << " Water harness (ppm) = " << data[index]
+        << endl << "ppm St.Dev of all samples: " << ppmStDev;
 }
 
