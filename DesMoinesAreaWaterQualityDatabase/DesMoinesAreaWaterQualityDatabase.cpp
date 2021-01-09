@@ -68,11 +68,11 @@ int main()
         {8.8,9,9.1},{8.7,9,8.9},{8.8,8.9,8.8} };
 
     //User input sample location.
-    pHChoice = userChoice();
+    string pHChoice = userChoice();
 
     //User input uppercase.
     convertLineUp(pHChoice);
-    
+
     //Location names to uppercase.
     convertArrayUp(pHLocation, 80);
 
@@ -103,11 +103,11 @@ int main()
         {25.3},{37.1},{1540} };
 
     //User input sample location.
-    ppmChoice = userChoice();
-    
+    string ppmChoice = userChoice();
+
     //User input uppercase.
     convertLineUp(ppmChoice);
-    
+
     //Location names to uppercase.
     convertArrayUp(ppmLocation, 30);
 
@@ -116,7 +116,7 @@ int main()
 
     //Display matching ppm, and St.Dev.
     ppmDisplayOut(j, ppmData, 30);
-    
+
     return 0;
 
 }//  ~~~ END MAIN ~~~
@@ -156,20 +156,18 @@ int search(string names[], string target, int numElements) {
 //Calc St.Dev of all elemenets within a 1D array.
 double getStDev(double data[], int numElements) {
     double sum, mean, standardDeviation = 0.0;
-    int i;
-    for (i = 0; i < numElements; ++i)
+
+    for (int i = 0; i < numElements; ++i)
         sum += data[i];
     mean = sum / numElements;
-    for (i = 0; i < numElements; ++i)
+    for (int i = 0; i < numElements; ++i)
         standardDeviation += pow(data[i] - mean, 2);
     return sqrt(standardDeviation / numElements - 1);
 }
 
 //Builds pHStat.
-void calcPh(int index, double inArr[80][3], double outArr[80][2]) { 
-    double rowSum = 0.0;
-    double rowMean = 0.0;
-    double sumRowMeanDevSqrt = 0.0;
+void calcPh(int index, double inArr[80][3], double outArr[80][2]) {
+    double rowSum, rowMean, sumRowMeanDevSqrt = 0.0;
 
     for (int r = 0; r < 80; r++) {
         //Accumulates the sum of a row.
@@ -194,36 +192,40 @@ void calcPh(int index, double inArr[80][3], double outArr[80][2]) {
 //Displays Avg pH, St.Dev, characteristic.
 void pHDisplayOut(int index, double arr[80][2], string locationName) {
     if (index != -1) {
-        cout << fixed << setprecision(2) 
-             << endl << "Sample avg. pH = " << arr[index][0] 
-             << endl << "Sample St.Dev: " << arr[index][1] 
-             << endl << "Characteristic: ";
-       
+        cout << fixed << setprecision(2)
+            << endl << "Sample avg. pH = " << arr[index][0]
+            << endl << "Sample St.Dev: " << arr[index][1]
+            << endl << "Characteristic: ";
+
         // pH scale Acidic( 0 - 14)Basic:
         if (arr[index][0] < 2)
-            cout << "Highly Acidic." << endl;
+            cout << "Highly Acidic." << endl << endl;
         else if (arr[index][0] < 4)
-            cout << "Acidic." << endl;
+            cout << "Acidic." << endl << endl;
         else if (arr[index][0] < 6)
-            cout << "Mild Acid." << endl;
+            cout << "Mild Acid." << endl << endl;
         else if (arr[index][0] < 8)
-            cout << "Neutral." << endl;
+            cout << "Neutral." << endl << endl;
         else if (arr[index][0] < 10)
-            cout << "Mild Base." << endl;
+            cout << "Mild Base." << endl << endl;
         else if (arr[index][0] < 12)
-            cout << "Basic." << endl;
+            cout << "Basic." << endl << endl;
         else
-            cout << "Highly Basic." << endl;
+            cout << "Highly Basic." << endl << endl;
     }
     else
-        cout << "Invalid Entry" << endl;
+        cout << endl << "Invalid Entry" << endl << endl;
 }
 
 //Displays Avg ppm, and St.Dev.
 void ppmDisplayOut(int index, double data[], int numElements) {
-    double ppmStDev = getStDev(data, numElements);
-    cout << fixed << setprecision(2) 
-        << endl << " Water harness (ppm) = " << data[index]
-        << endl << "ppm St.Dev of all samples: " << ppmStDev;
+    if (index != -1) {
+        double ppmStDev = getStDev(data, numElements);
+        cout << fixed << setprecision(2)
+            << endl << "Water harness (ppm) = " << data[index]
+            << endl << "ppm St.Dev of all samples: " << ppmStDev << endl << endl;
+    }
+    else
+        cout << endl << "Invalid Entry." << endl << endl;
 }
 
