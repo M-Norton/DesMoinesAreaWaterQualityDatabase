@@ -155,7 +155,9 @@ int search(string names[], string target, int numElements) {
 
 //Calc St.Dev of all elemenets within a 1D array.
 double getStDev(double data[], int numElements) {
-    double sum, mean, standardDeviation = 0.0;
+    double sum = 0.0;
+    double mean = 0.0;
+    double standardDeviation = 0.0;
 
     for (int i = 0; i < numElements; ++i)
         sum += data[i];
@@ -167,7 +169,9 @@ double getStDev(double data[], int numElements) {
 
 //Builds pHStat.
 void calcPh(int index, double inArr[80][3], double outArr[80][2]) {
-    double rowSum, rowMean, sumRowMeanDevSqrt = 0.0;
+    double rowSum = 0.0;
+    double rowMean = 0.0;
+    double sumRowMeanDevSqrt = 0.0;
 
     for (int r = 0; r < 80; r++) {
         //Accumulates the sum of a row.
