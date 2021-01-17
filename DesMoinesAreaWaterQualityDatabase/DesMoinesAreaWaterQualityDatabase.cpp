@@ -24,7 +24,7 @@ int main()
    ____  __  __    _    ____ ____ 
   |  _ \|  \/  |  / \  / ___/ ___|      
   | | | | |\/| | / _ \| |  | |          EGR 155 - Intro to Engineering C/C++
-  | |_| | |  | |/ ___ \ |__| |___       Developer:  Matt Norton
+  | |_| | |  | |/ ___ \ |__| |___       Author:  Matt Norton
   |____/|_|  |_/_/   \_\____\____|      Instructor: Dr. Edris Ebrahimzadeh
                                  
                  A final project made in collaboration with
