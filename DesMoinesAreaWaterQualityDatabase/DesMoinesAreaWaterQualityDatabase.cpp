@@ -24,8 +24,10 @@ int main()
    ____  __  __    _    ____ ____ 
   |  _ \|  \/  |  / \  / ___/ ___|      
   | | | | |\/| | / _ \| |  | |          EGR 155 - Intro to Engineering C/C++
-  | |_| | |  | |/ ___ \ |__| |___       Author:  Matt Norton
-  |____/|_|  |_/_/   \_\____\____|      Instructor: Dr. Edris Ebrahimzadeh
+  | |_| | |  | |/ ___ \ |__| |___       Authors:  Taegen Duncan
+  |____/|_|  |_/_/   \_\____\____|                Hang Thang
+                                                  Matt Norton
+                                        Instructor: Dr. Edris Ebrahimzadeh
                                  
                  A final project made in collaboration with
                         DMACC CHM165 fall class 2020.        
